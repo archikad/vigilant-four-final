@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/third_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/second_button"
+        android:layout_alignStart="@+id/second_button"
+        android:layout_below="@+id/second_button"
+        android:layout_marginTop="34dp"
+        android:clickable="true"
+        app:backgroundTint="@color/black"
+        app:elevation="7dp"
+        app:fabSize="normal"
+        app:rippleColor="@android:color/darker_gray" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/second_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:backgroundTint="@color/purple"
+        app:elevation="7dp"
+        app:fabSize="normal"
+        app:rippleColor="@android:color/holo_purple"
+        android:layout_below="@+id/first_button"
+        android:layout_alignLeft="@+id/first_button"
+        android:layout_alignStart="@+id/first_button"
+        android:layout_marginTop="25dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/first_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:backgroundTint="@color/colorPrimary"
+        app:elevation="7dp"
+        app:fabSize="normal"
+        app:rippleColor="@android:color/holo_blue_bright"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+</RelativeLayout>
