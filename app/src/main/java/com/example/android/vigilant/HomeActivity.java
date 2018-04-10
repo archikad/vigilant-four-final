@@ -1,5 +1,6 @@
 package com.example.android.vigilant;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -34,6 +35,7 @@ import android.view.View;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -65,14 +67,40 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
+        final ArrayList<String> contacts = getIntent().getStringArrayListExtra("CONTACTSLIST");
 
         Button location_button = (Button) this.findViewById(R.id.button5);
 
+        /* location_button.setOnClickListener(new View.OnClickListener() {
+                                               @Override
+                                               public void onClick(View v) {
+                                                   sendSMS("CONTACTSLIST", message);
+                                               }
+                                           }); */
         location_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendSMS("5556", "hi");
+
+                if (checkPermissionText(Manifest.permission.SEND_SMS)) {
+
+
+                    // TODO GET THIS INTENT RECIEVER TO WORK
+
+
+
+                    //String[] contacts = getIntent().getExtras().getStringArray("CONTACTS");
+
+                    //String[] contacts = new String[] {"3345", "5554", "5556"};
+
+
+                    for(int i = 0; i < contacts.size(); i++) {
+                        SmsManager smsManager = SmsManager.getDefault();
+                        smsManager.sendTextMessage(contacts.get(i), null, message, null, null);
+                    }
+
+                } else {
+                    Toast.makeText(HomeActivity.this, "Permission denied", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -224,7 +252,7 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
             intent.addCategory(Intent.CATEGORY_BROWSABLE);
-            intent.setData(Uri.parse("http://www.yourURL.com"));
+            intent.setData(Uri.parse("http://www.wix.com"));
             startActivity(intent);
         }});
     }
@@ -294,6 +322,11 @@ public class HomeActivity extends AppCompatActivity {
                 result1 == PackageManager.PERMISSION_GRANTED &&
                 result2 == PackageManager.PERMISSION_GRANTED;
 
+    }
+
+    private boolean checkPermissionText(String permission) {
+        int checkPermission = ContextCompat.checkSelfPermission(this, permission);
+        return (checkPermission == PackageManager.PERMISSION_GRANTED);
     }
 
 

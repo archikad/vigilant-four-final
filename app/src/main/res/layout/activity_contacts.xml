@@ -1,70 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:padding="5dp" >
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.android.vigilant.ContactsActivity"
+    android:background="#696969">
+
+    <ListView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="pickContact"
-        android:text="Pick Contact" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal" >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Name"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/darker_gray" />
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text=""
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal" >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Phone Number"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/darker_gray" />
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text=""
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-    </LinearLayout>
+        android:id="@+id/lv"
+        android:background="#696969"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="40dp"
+        />
 
     <Button
-        android:id="@+id/gotohome"
-        android:layout_width="match_parent"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:text="Continue" />
-</LinearLayout>
+        android:text="Next"
+        android:id="@+id/button"
+        android:background="@drawable/mybutton2"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:background="#696969"
+        android:text="SELECT YOUR EMERGENCY CONTACTS"
+        android:id="@+id/textView4"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
-
-
-
-
-
+</RelativeLayout>
 
 
 

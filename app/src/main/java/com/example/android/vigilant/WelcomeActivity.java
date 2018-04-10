@@ -19,7 +19,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
 //            when sign up button is clicked it takes you to SignUpBasicInfo
             public void onClick(View v) {
-                Intent GotoSignUpBasic = new Intent(WelcomeActivity.this, FirstActivity.class);
+                Intent GotoSignUpBasic = new Intent(WelcomeActivity.this, ContactsActivity.class);
                 WelcomeActivity.this.startActivity(GotoSignUpBasic);
     }
 

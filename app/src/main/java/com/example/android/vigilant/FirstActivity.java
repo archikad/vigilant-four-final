@@ -17,9 +17,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.security.Permission;
+import java.util.ArrayList;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.SEND_SMS;
@@ -40,10 +43,15 @@ public class FirstActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
+
         FloatingActionButton first_button = (FloatingActionButton) findViewById(R.id.first_button);
         FloatingActionButton second_button = (FloatingActionButton) findViewById(R.id.second_button);
         FloatingActionButton third_button = (FloatingActionButton) findViewById(R.id.third_button);
+        Button more_button = (Button) findViewById(R.id.more_button);
         second_button.setEnabled(false);
+
+        final ArrayList<String> contacts = getIntent().getStringArrayListExtra("CONTACTS");
+
         if (checkPermission(Manifest.permission.SEND_SMS)) {
             second_button.setEnabled(true);
         } else {
@@ -57,11 +65,21 @@ public class FirstActivity extends AppCompatActivity {
 
                 if (checkPermission(Manifest.permission.SEND_SMS)) {
 
-                    String strnum="5556";
-                    SmsManager smsManager = SmsManager.getDefault();
+
+                    // TODO GET THIS INTENT RECIEVER TO WORK
 
 
-                    smsManager.sendTextMessage(strnum, null, "please pick me up at location", null, null);
+
+                    //String[] contacts = getIntent().getExtras().getStringArray("CONTACTS");
+
+                    //String[] contacts = new String[] {"3345", "5554", "5556"};
+
+
+                    for(int i = 0; i < contacts.size(); i++) {
+                        SmsManager smsManager = SmsManager.getDefault();
+                        smsManager.sendTextMessage(contacts.get(i), null, "Please call for help or pick me up now. I think I'm in danger.", null, null);
+                    }
+
                 } else {
                     Toast.makeText(FirstActivity.this, "Permission denied", Toast.LENGTH_SHORT).show();
                 }
@@ -82,9 +100,6 @@ public class FirstActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
-                    String strnum="5556";
-                    SmsManager smsManager = SmsManager.getDefault();
                     /*String SENT = "SMS_SENT";
 
                     String DELIVERED = "SMS_DELIVERED";
@@ -113,8 +128,15 @@ public class FirstActivity extends AppCompatActivity {
 
                     } , new IntentFilter(SENT));
                     //delivered//*/
-                    smsManager.sendTextMessage(strnum, null, "stand by- im in an awk situation", null, null);
+
                 if (checkPermission(Manifest.permission.SEND_SMS)) {
+
+                    ArrayList<String> contacts = getIntent().getStringArrayListExtra("CONTACTS");
+
+                    for(int i = 0; i < contacts.size(); i++) {
+                        SmsManager smsManager = SmsManager.getDefault();
+                        smsManager.sendTextMessage(contacts.get(i), null, "I'm in a weird situation. Stand by.", null, null);
+                    }
                 } else {
                     Toast.makeText(FirstActivity.this, "Permission denied", Toast.LENGTH_SHORT).show();
                 }
@@ -125,13 +147,28 @@ public class FirstActivity extends AppCompatActivity {
         third_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String number = "5556";
+                String number = "911";
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:" + number));
                 startActivity(intent);
             }
 
         });
+
+        more_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gotohome = new Intent(FirstActivity.this, HomeActivity.class);
+                FirstActivity.this.startActivity(gotohome);
+
+                Intent sendcontacts = new Intent(FirstActivity.this, HomeActivity.class);
+                sendcontacts.putStringArrayListExtra("CONTACTSLIST", contacts);
+                FirstActivity.this.startActivity(sendcontacts);
+            }
+        });
+
+
+
     }
 
 
@@ -143,7 +180,7 @@ public class FirstActivity extends AppCompatActivity {
     }
 
 
-    @Override
+
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE: {
@@ -155,11 +192,11 @@ public class FirstActivity extends AppCompatActivity {
                 return;
             }
         }
-    }
+    }}
 
 
 
-    }
+
 
 
 // ...
