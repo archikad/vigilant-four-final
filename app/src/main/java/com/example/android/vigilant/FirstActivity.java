@@ -36,17 +36,17 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class FirstActivity extends AppCompatActivity {
     final int PERMISSION_REQUEST_CODE = 111;
-    private FloatingActionButton second_button;
-    private FloatingActionButton first_button;
+    private Button second_button;
+    private Button first_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
 
-        FloatingActionButton first_button = (FloatingActionButton) findViewById(R.id.first_button);
-        FloatingActionButton second_button = (FloatingActionButton) findViewById(R.id.second_button);
-        FloatingActionButton third_button = (FloatingActionButton) findViewById(R.id.third_button);
+        Button first_button = (Button) findViewById(R.id.first_button);
+        Button second_button = (Button) findViewById(R.id.second_button);
+        Button third_button = (Button) findViewById(R.id.third_button);
         Button more_button = (Button) findViewById(R.id.more_button);
         second_button.setEnabled(false);
 

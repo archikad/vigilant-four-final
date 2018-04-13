@@ -1,11 +1,13 @@
 package com.example.android.vigilant;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,6 +46,8 @@ public class ContactsActivity extends AppCompatActivity implements AdapterView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+
 
         alert.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -104,6 +108,10 @@ public class ContactsActivity extends AppCompatActivity implements AdapterView.O
         });
 
     }
+
+
+
+
 
     public  void getAllContacts(ContentResolver cr) {
 

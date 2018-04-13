@@ -1,6 +1,7 @@
 package com.example.android.vigilant;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -8,6 +9,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.Image;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -51,7 +53,6 @@ import android.support.v4.content.ContextCompat;
 public class HomeActivity extends AppCompatActivity {
 
     private static final int CAMERA_REQUEST = 1888;
-    private ImageView imageView;
     Button buttonStart, buttonStop, buttonPlayLastRecordAudio,
             buttonStopPlayingRecording ;
     String AudioSavePathInDevice = null;
@@ -66,6 +67,9 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        Button go_back_button = (Button) findViewById(R.id.button8);
+        Button go_to_contacts = (Button) findViewById(R.id.button7);
 
         final ArrayList<String> contacts = getIntent().getStringArrayListExtra("CONTACTSLIST");
 
@@ -137,7 +141,7 @@ public class HomeActivity extends AppCompatActivity {
         message += "This is my location: " + "https://www.google.co.id/maps/@" + latitude + "," + longitude;
 
 
-        this.imageView = (ImageView)this.findViewById(R.id.imageView1);
+
         Button photoButton = (Button) this.findViewById(R.id.button1);
         photoButton.setOnClickListener(new View.OnClickListener() {
 
@@ -147,6 +151,29 @@ public class HomeActivity extends AppCompatActivity {
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
             }
         });
+
+        go_back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent GoBack = new Intent(HomeActivity.this, FirstActivity.class);
+                HomeActivity.this.startActivity(GoBack);
+            }
+
+        });
+
+        go_to_contacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent GoContacts = new Intent(HomeActivity.this, ContactsActivity.class);
+                HomeActivity.this.startActivity(GoContacts);
+
+            }
+        });
+
+
+
+
+
         buttonStart = (Button) findViewById(R.id.button);
         buttonStop = (Button) findViewById(R.id.button2);
         buttonPlayLastRecordAudio = (Button) findViewById(R.id.button3);
@@ -333,9 +360,14 @@ public class HomeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(photo);
+            MediaStore.Images.Media.insertImage(getContentResolver(), photo, "Photo" , "Photo take through Vigilant");
+
         }
-    }
+            }
+
+
+
+
 }
 
 

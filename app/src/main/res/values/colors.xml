@@ -4,5 +4,16 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ff4081</color>
     <color name="black">#000000</color>
-    <color name="purple">#eb5aeb</color>
+    <color name="purple">#dd09dd</color>
+    <color name="lightblue">#addfff</color>
+    <color name="lightcyan">#e0ffff</color>
+    <color name="lightslate">#ccffff</color>
+    <color name="brightblue">#52f1be</color>
+    <color name="lavendar">#dba3e1</color>
+    <color name="oceanblue">#5b99e1</color>
+    <color name="seagreen">#b0ed95</color>
+    <color name="lakelouis">#1fc9ef</color>
+    <color name="brightgreen">#2ffc3d</color>
+
+
 </resources>
