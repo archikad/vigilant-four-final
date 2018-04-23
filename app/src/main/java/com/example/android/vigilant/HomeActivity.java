@@ -54,13 +54,13 @@ public class HomeActivity extends AppCompatActivity {
 
     private static final int CAMERA_REQUEST = 1888;
     Button buttonStart, buttonStop, buttonPlayLastRecordAudio,
-            buttonStopPlayingRecording ;
+            buttonStopPlayingRecording;
     String AudioSavePathInDevice = null;
-    MediaRecorder mediaRecorder ;
-    Random random ;
+    MediaRecorder mediaRecorder;
+    Random random;
     String RandomAudioFileName = "ABCDEFGHIJKLMNOP";
     public static final int RequestPermissionCode = 1;
-    MediaPlayer mediaPlayer ;
+    MediaPlayer mediaPlayer;
     String message;
 
     @Override
@@ -87,17 +87,12 @@ public class HomeActivity extends AppCompatActivity {
 
                 if (checkPermissionText(Manifest.permission.SEND_SMS)) {
 
-
                     // TODO GET THIS INTENT RECIEVER TO WORK
 
-
-
                     //String[] contacts = getIntent().getExtras().getStringArray("CONTACTS");
-
                     //String[] contacts = new String[] {"3345", "5554", "5556"};
 
-
-                    for(int i = 0; i < contacts.size(); i++) {
+                    for (int i = 0; i < contacts.size(); i++) {
                         SmsManager smsManager = SmsManager.getDefault();
                         smsManager.sendTextMessage(contacts.get(i), null, message, null, null);
                     }
@@ -109,10 +104,17 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
-
-
-
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, new LocationListener() {
             @Override
             public void onStatusChanged(String s, int i, Bundle bundle) {
@@ -169,10 +171,6 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
 
         buttonStart = (Button) findViewById(R.id.button);
         buttonStop = (Button) findViewById(R.id.button2);
