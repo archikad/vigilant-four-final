@@ -35,6 +35,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
 public class FirstActivity extends AppCompatActivity {
+
     final int PERMISSION_REQUEST_CODE = 111;
     private Button second_button;
     private Button first_button;
@@ -44,8 +45,8 @@ public class FirstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
 
-        Button first_button = (Button) findViewById(R.id.first_button);
-        Button second_button = (Button) findViewById(R.id.second_button);
+        first_button = (Button) findViewById(R.id.first_button);
+        second_button = (Button) findViewById(R.id.second_button);
         Button third_button = (Button) findViewById(R.id.third_button);
         Button more_button = (Button) findViewById(R.id.more_button);
         second_button.setEnabled(false);
@@ -65,15 +66,10 @@ public class FirstActivity extends AppCompatActivity {
 
                 if (checkPermission(Manifest.permission.SEND_SMS)) {
 
-
                     // TODO GET THIS INTENT RECIEVER TO WORK
 
-
-
                     //String[] contacts = getIntent().getExtras().getStringArray("CONTACTS");
-
                     //String[] contacts = new String[] {"3345", "5554", "5556"};
-
 
                     for(int i = 0; i < contacts.size(); i++) {
                         SmsManager smsManager = SmsManager.getDefault();
@@ -103,11 +99,8 @@ public class FirstActivity extends AppCompatActivity {
                     /*String SENT = "SMS_SENT";
 
                     String DELIVERED = "SMS_DELIVERED";
-
                     PendingIntent sentPI = PendingIntent.getBroadcast(FirstActivity.this, 0, new Intent(SENT), 0);
-
                     PendingIntent deliveredPI = PendingIntent.getBroadcast(FirstActivity.this, 0, new Intent(DELIVERED), 0);
-
 
 
                     //--- When the SMS has been sent --
@@ -167,19 +160,12 @@ public class FirstActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
-
-
-
 
     private boolean checkPermission(String permission) {
         int checkPermission = ContextCompat.checkSelfPermission(this, permission);
         return (checkPermission == PackageManager.PERMISSION_GRANTED);
     }
-
-
 
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
@@ -193,16 +179,6 @@ public class FirstActivity extends AppCompatActivity {
             }
         }
     }}
-
-
-
-
-
-
-// ...
-
-
-
 
 
 

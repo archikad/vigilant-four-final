@@ -5,7 +5,9 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.Build;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
@@ -41,6 +43,8 @@ public class ContactsActivity extends AppCompatActivity implements AdapterView.O
     List<String> name1 = new ArrayList<String>();
     List<String> phone1 = new ArrayList<String>();
 
+    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +57,8 @@ public class ContactsActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
-        })
-                .setMessage("This App requires GPS to work properly. Please keep the GPS enabled whenever you are using this App.")
-                .show();
+        }).setMessage("This App requires GPS to work properly. Please keep the GPS enabled whenever you are using this App.")
+          .show();
 
         getAllContacts(this.getContentResolver());
         ListView lv =(ListView)findViewById(R.id.lv);
@@ -100,40 +103,47 @@ public class ContactsActivity extends AppCompatActivity implements AdapterView.O
                 else {
                     Toast.makeText(ContactsActivity.this, "At least 1 Contact must be selected !", Toast.LENGTH_SHORT).show();
                 }
-
-
-
-
             }
         });
-
-    }
-
-
-
-
-
-    public  void getAllContacts(ContentResolver cr) {
-
-        Cursor phones = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,null,null, null);
-
-        while (phones.moveToNext())
-        {
-            String name=phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-            String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-            System.out.println(".................."+phoneNumber);
-            name1.add(name);
-            phone1.add(phoneNumber);
-
-        }
-
-        phones.close();
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission is granted
+                getAllContacts(this.getContentResolver());
+            } else {
+                Toast.makeText(this, "Until you grant the permission, we canot display the names", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
+
+    public  void getAllContacts(ContentResolver cr) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSIONS_REQUEST_READ_CONTACTS);
+            //After this point you wait for callback in onRequestPermissionsResult(int, String[], int[]) overriden method
+        } else {
+            // Android version is lesser than 6.0 or the permission is already granted.
+
+            Cursor phones = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,null,null, null);
+
+            while (phones.moveToNext())
+            {
+                String name=phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                System.out.println(".................."+phoneNumber);
+                name1.add(name);
+                phone1.add(phoneNumber);
+            }
+            phones.close();
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {}
 
     class MyAdapter extends BaseAdapter
     {
@@ -171,9 +181,7 @@ public class ContactsActivity extends AppCompatActivity implements AdapterView.O
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                     if (isChecked) {
-
                         store.add(phone1.get(position));
-
                     }
                     else {
                         store.remove(phone1.get(position));
@@ -185,9 +193,7 @@ public class ContactsActivity extends AppCompatActivity implements AdapterView.O
             return  vi;
         }
 
-
     }
-
 
 }
 
